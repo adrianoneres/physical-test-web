@@ -3,25 +3,30 @@ module.exports = {
   content: ['./src/**/*.tsx'],
   theme: {
     fontSize: {
-      sm: 14,
-      md: 16,
-      lg: 18,
-      xl: 20,
-      '2xl': 24,
-      '3xl': 32,
+      xs: 14,
+      sm: 16,
+      md: 18,
+      lg: 20,
+      xl: 24,
+      '2xl': 32,
     },
     colors: {
+      transparent: 'transparent',
       black: '#111827',
       white: '#FFFFFF',
       green: '#22C55E',
       yellow: '#F59E0B',
       red: '#E11D48',
-      'blue-600': '#2563EB',
-      'blue-500': '#3B82F6',
-      'blue-300': '#93C5FD',
-      'slate-800': '#1E293B',
-      'slate-300': '#CBD5E1',
-      'slate-100': '#F1F5F9',
+      blue: {
+        600: '#2563EB',
+        500: '#3B82F6',
+        300: '#93C5FD',
+      },
+      slate: {
+        800: '#1E293B',
+        300: '#CBD5E1',
+        100: '#F1F5F9',
+      },
     },
     extend: {
       fontFamily: {
