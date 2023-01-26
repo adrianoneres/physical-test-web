@@ -1,21 +1,21 @@
+import { MouseEventHandler } from 'react';
 import { Icon } from 'phosphor-react';
 import { clsx } from 'clsx';
-import { MouseEventHandler } from 'react';
 
 export interface ButtonProps {
   value: string;
   type?: 'button' | 'submit';
-  action?: MouseEventHandler<HTMLButtonElement>;
   icon?: Icon;
   size?: 'hug' | 'full';
+  action?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export function Button({
   value,
-  action = () => {},
   type = 'button',
   icon,
   size = 'hug',
+  action = () => {},
 }: ButtonProps) {
   const ButtonIcon: Icon | undefined = icon;
 
