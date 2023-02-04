@@ -1,6 +1,5 @@
 import {
   ChangeEvent,
-  Fragment,
   InputHTMLAttributes,
   KeyboardEvent,
   ReactNode,
@@ -9,8 +8,8 @@ import {
 import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 
-import { DateHelper } from '../helpers/DateHelper';
 import { differenceInYears } from 'date-fns/esm';
+import { DateHelper } from '../helpers/DateHelper';
 
 export interface DateInputRootProps {
   children: ReactNode;
@@ -107,7 +106,7 @@ function DateInputInput({
   };
 
   return (
-    <Fragment>
+    <>
       <input
         className={clsx(
           'bg-transparent flex-1 outline-none text-black text-xs placeholder:text-slate-300',
@@ -129,7 +128,7 @@ function DateInputInput({
           {infoMessage}
         </span>
       )}
-    </Fragment>
+    </>
   );
 }
 

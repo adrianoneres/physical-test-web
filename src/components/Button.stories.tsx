@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Meta, StoryObj } from '@storybook/react';
 import { Check } from 'phosphor-react';
 

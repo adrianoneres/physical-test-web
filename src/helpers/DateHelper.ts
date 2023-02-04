@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   format as formatDate,
   isValid as isValidTest,

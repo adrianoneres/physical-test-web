@@ -34,6 +34,24 @@ function SelectRoot({ placeholder, icon, options }: SelectRootProps) {
   );
 }
 
+export interface SelectItemProps {
+  value: string;
+  label: string;
+}
+
+const SelectItem = forwardRef(({ children, ...props }: any, forwardedRef) => (
+  <SelectPrimitive.Item
+    className="pl-12 font-sans cursor-default h-12 py-4 px-3 flex items-center rounded hover:bg-blue-500 hover:outline-none hover:text-white"
+    {...props}
+    ref={forwardedRef}
+  >
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    <SelectPrimitive.ItemIndicator className="absolute left-6 w-full">
+      <Check size={24} />
+    </SelectPrimitive.ItemIndicator>
+  </SelectPrimitive.Item>
+));
+
 SelectRoot.displayName = 'Select.Root';
 
 export interface SelectOptionProps {
@@ -51,26 +69,6 @@ function SelectOptions({ items }: SelectOptionProps) {
 }
 
 SelectOptions.displayName = 'Select.Options';
-
-export interface SelectItemProps {
-  value: string;
-  label: string;
-}
-
-const SelectItem = forwardRef(({ children, ...props }: any, forwardedRef) => {
-  return (
-    <SelectPrimitive.Item
-      className="pl-12 font-sans cursor-default h-12 py-4 px-3 flex items-center rounded hover:bg-blue-500 hover:outline-none hover:text-white"
-      {...props}
-      ref={forwardedRef}
-    >
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator className="absolute left-6 w-full">
-        <Check size={24} />
-      </SelectPrimitive.ItemIndicator>
-    </SelectPrimitive.Item>
-  );
-});
 
 export const Select = {
   Root: SelectRoot,

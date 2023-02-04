@@ -19,9 +19,9 @@ export function Link({ value, action = () => {}, icon }: LinkProps) {
         'text-blue-500 text-sm hover:underline transition-colors flex items-center',
       )}
     >
-      {LinkIcon ? <LinkIcon size={18} className="mr-1" /> : <span></span>}
+      {LinkIcon ? <LinkIcon size={18} className="mr-1" /> : <span />}
       {value}
-      {<span className={LinkIcon ? 'w-6 h-6' : ''}></span>}
+      <span className={LinkIcon ? 'w-6 h-6' : ''} />
     </button>
   );
 }

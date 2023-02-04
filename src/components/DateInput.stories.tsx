@@ -30,7 +30,7 @@ export const Custom: StoryObj<DateInputRootProps> = {
         key="custom-input"
         placeholder="1990-10-31"
         info="Age"
-        showAge={true}
+        showAge
       />,
     ],
   },

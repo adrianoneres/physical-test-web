@@ -33,9 +33,9 @@ export function Button({
         },
       )}
     >
-      {<span className={ButtonIcon ? 'w-6 h-6' : ''}></span>}
+      <span className={ButtonIcon ? 'w-6 h-6' : ''} />
       {value}
-      {ButtonIcon ? <ButtonIcon size={24} /> : <span></span>}
+      {ButtonIcon ? <ButtonIcon size={24} /> : <span />}
     </button>
   );
 }
