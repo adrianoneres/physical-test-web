@@ -12,6 +12,7 @@ import { TextInput } from '../components/TextInput';
 import { useAuth } from '../contexts/auth';
 import { Alert } from '../components/Alert';
 import { AppError, handleError } from '../components/errors/AppError';
+import { PublicTemplate } from './templates/PublicTemplate';
 
 const formValidationSchema = zod.object({
   username: zod.string().min(1, 'Nome de usuário é obrigatório'),
@@ -50,55 +51,59 @@ export function SignIn() {
   );
 
   return (
-    <section className="w-full h-screen max-w-[464px] m-auto px-8 flex flex-col justify-center">
-      <form onSubmit={handleSubmit(handleSingIn)}>
-        <header className="flex flex-col justify-center mb-8">
-          <span className="text-2xl flex justify-center">🫀</span>
-          <Heading size="lg" asChild>
-            <h1 className="flex justify-center">Avaliação Física</h1>
-          </Heading>
-          <Text size="lg" asChild>
-            <h2 className="flex justify-center">Faça seu login</h2>
-          </Text>
-        </header>
-        <main>
-          <Alert message={errorMessage} />
-          <div className="mb-8">
-            <Text asChild>
-              <span className="font-semibold mb-2">Usuário</span>
+    <PublicTemplate>
+      <section className="w-full h-screen flex flex-col justify-center max-w-[464px] m-auto px-8">
+        <form onSubmit={handleSubmit(handleSingIn)}>
+          <header className="flex flex-col justify-center mb-8">
+            <span className="text-2xl flex justify-center">🫀</span>
+            <Heading size="lg" asChild>
+              <h1 className="flex justify-center text-black">
+                Avaliação Física
+              </h1>
+            </Heading>
+            <Text size="lg" asChild>
+              <h2 className="flex justify-center text-black">Faça seu login</h2>
             </Text>
-            <TextInput.Root error={formState.errors.username?.message}>
-              <TextInput.Icon>
-                <UserCircle />
-              </TextInput.Icon>
-              <TextInput.Input
-                control={control}
-                name="username"
-                placeholder="Nome de usuário"
-              />
-            </TextInput.Root>
-          </div>
-          <div className="mb-8">
-            <Text asChild>
-              <span className="font-semibold mb-2">Senha</span>
-            </Text>
-            <TextInput.Root error={formState.errors.password?.message}>
-              <TextInput.Icon>
-                <Lock />
-              </TextInput.Icon>
-              <TextInput.Input
-                type="password"
-                control={control}
-                name="password"
-                placeholder="Senha de acesso"
-              />
-            </TextInput.Root>
-          </div>
-        </main>
-        <footer>
-          <Button type="submit" value="Entrar" size="full" />
-        </footer>
-      </form>
-    </section>
+          </header>
+          <main>
+            <Alert message={errorMessage} />
+            <div className="mb-8">
+              <Text asChild>
+                <span className="font-semibold mb-2 text-black">Usuário</span>
+              </Text>
+              <TextInput.Root error={formState.errors.username?.message}>
+                <TextInput.Icon>
+                  <UserCircle />
+                </TextInput.Icon>
+                <TextInput.Input
+                  control={control}
+                  name="username"
+                  placeholder="Nome de usuário"
+                />
+              </TextInput.Root>
+            </div>
+            <div className="mb-8">
+              <Text asChild>
+                <span className="font-semibold mb-2 text-black">Senha</span>
+              </Text>
+              <TextInput.Root error={formState.errors.password?.message}>
+                <TextInput.Icon>
+                  <Lock />
+                </TextInput.Icon>
+                <TextInput.Input
+                  type="password"
+                  control={control}
+                  name="password"
+                  placeholder="Senha de acesso"
+                />
+              </TextInput.Root>
+            </div>
+          </main>
+          <footer>
+            <Button type="submit" value="Entrar" size="full" />
+          </footer>
+        </form>
+      </section>
+    </PublicTemplate>
   );
 }

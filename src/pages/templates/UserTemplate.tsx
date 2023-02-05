@@ -1,12 +1,16 @@
-import { Outlet } from 'react-router-dom';
+import { ReactNode } from 'react';
 
 import { Header } from '../../components/Header';
 
-export function AuthorizedLayout() {
+interface UserTemplateProps {
+  children: ReactNode;
+}
+
+export function UserTemplate({ children }: UserTemplateProps) {
   return (
-    <main className="bg-slate-100">
+    <div className="w-full h-screen bg-slate-100">
       <Header />
-      <Outlet />
-    </main>
+      {children}
+    </div>
   );
 }

@@ -1,3 +1,9 @@
+import { UserTemplate } from './templates/UserTemplate';
+
 export function Dashboard() {
-  return <h1>Dashboard</h1>;
+  return (
+    <UserTemplate>
+      <h1>Dashboard</h1>
+    </UserTemplate>
+  );
 }
