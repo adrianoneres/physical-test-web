@@ -15,12 +15,17 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "arrow-parens": "off",
+    "no-console": "off",
+    "operator-linebreak": "off",
+    "object-curly-newline": "off",
+    "camelcase": "off",
     "react/react-in-jsx-scope": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "react/require-default-props": "off",
     "react/button-has-type": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-constructed-context-values": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/no-extraneous-dependencies": [
       "error",

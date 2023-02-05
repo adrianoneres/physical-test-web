@@ -122,7 +122,7 @@ function DateInputInput({
       {infoMessage && (
         <span
           className={clsx('font-sans text-sm text-slate-300', {
-            'text-red': !isValid,
+            'text-red-500': !isValid,
           })}
         >
           {infoMessage}

@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
+import { Control } from 'react-hook-form';
 import { UserCircle } from 'phosphor-react';
 
 import { TextInput, TextInputRootProps } from './TextInput';
@@ -7,7 +8,13 @@ export default {
   title: 'Components/TextInput',
   component: TextInput.Root,
   args: {
-    children: <TextInput.Input placeholder="Placeholder" />,
+    children: (
+      <TextInput.Input
+        control={{} as Control}
+        name="test"
+        placeholder="Placeholder"
+      />
+    ),
   },
   argTypes: {
     children: {
@@ -28,6 +35,8 @@ export const Custom: StoryObj<TextInputRootProps> = {
       </TextInput.Icon>,
       <TextInput.Input
         key="custom-input"
+        control={{} as Control}
+        name="test"
         placeholder="Placeholder"
         info="Nice name"
       />,

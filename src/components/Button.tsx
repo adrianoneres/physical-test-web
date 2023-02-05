@@ -7,6 +7,7 @@ export interface ButtonProps {
   type?: 'button' | 'submit';
   icon?: Icon;
   size?: 'hug' | 'full';
+  disabled?: Boolean;
   action?: MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -15,6 +16,7 @@ export function Button({
   type = 'button',
   icon,
   size = 'hug',
+  disabled = false,
   action = () => {},
 }: ButtonProps) {
   const ButtonIcon: Icon | undefined = icon;
@@ -23,6 +25,7 @@ export function Button({
     <button
       type={type}
       onClick={action}
+      disabled={!!disabled}
       className={clsx(
         'min-w-[200px] py-3 px-4 h-12 rounded bg-blue-500 text-white font-semibold text-sm hover:bg-blue-600 focus:ring focus:ring-blue-300 transition-colors flex',
         {
