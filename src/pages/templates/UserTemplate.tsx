@@ -10,7 +10,7 @@ export function UserTemplate({ children }: UserTemplateProps) {
   return (
     <div className="w-full h-screen bg-slate-100">
       <Header />
-      {children}
+      <main className="max-w-[960px] m-auto p-3">{children}</main>
     </div>
   );
 }
