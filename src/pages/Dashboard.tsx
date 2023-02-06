@@ -11,7 +11,7 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   const navigateToPhysicalTests = () => {
-    navigate('/physical-tests');
+    navigate('/app/physical-tests');
   };
 
   return (

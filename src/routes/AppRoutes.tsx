@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 import { useAuth } from '../contexts/auth';
 
 import { Dashboard } from '../pages/Dashboard';
@@ -17,10 +17,10 @@ export function AppRoutes() {
 
   const routes = useRoutes([
     { path: '/', element: isLoggedIn ? <Dashboard /> : <SignIn /> },
-    { path: 'sign-in', element: <SignIn /> },
+    { path: 'sign-in', element: isLoggedIn ? <Dashboard /> : <SignIn /> },
     {
       path: 'app',
-      element: isLoggedIn ? <Dashboard /> : <Navigate to="/" />,
+      element: isLoggedIn ? <Outlet /> : <Navigate to="/" />,
       children: [
         { path: '', element: <Navigate to="dashboard" /> },
         { path: 'dashboard', element: <Dashboard /> },

@@ -29,8 +29,8 @@ export class DateHelper {
   static isValid(value: string, format: string): boolean {
     const availableFormats = Object.keys(DATE_FORMATS);
 
-    const isAvailableFormat = !availableFormats.includes(format);
-    if (isAvailableFormat) {
+    const isUnavailableFormat = !availableFormats.includes(format);
+    if (isUnavailableFormat) {
       console.error('Invalid format');
       return false;
     }

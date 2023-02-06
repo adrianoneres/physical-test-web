@@ -89,9 +89,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       api.interceptors.response.use(
         response => response,
         async error => {
-          console.log('>> error', error);
           if (error.response && error.response.status === 401) {
-            console.log('>> signOut');
             signOut();
           }
 

@@ -5,6 +5,7 @@ import {
   ReactNode,
   useState,
 } from 'react';
+import { Control, Controller } from 'react-hook-form';
 import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 
@@ -12,14 +13,18 @@ import { differenceInYears } from 'date-fns/esm';
 import { DateHelper } from '../helpers/DateHelper';
 
 export interface DateInputRootProps {
+  error?: string;
   children: ReactNode;
 }
 
-function DateInputRoot({ children }: DateInputRootProps) {
+function DateInputRoot({ error, children }: DateInputRootProps) {
   return (
-    <div className="w-full flex items-center gap-3 py-4 px-3 h-12 rounded border-2 bg-white border-slate-300 text-slate-300 focus-within:border-blue-500 focus-within:ring focus-within:ring-blue-300 focus-within:text-black transition-colors [&:has(invalid)]:ring-red">
-      {children}
-    </div>
+    <>
+      <div className="w-full flex items-center gap-3 py-4 px-3 h-12 rounded border-2 bg-white border-slate-300 text-slate-300 focus-within:border-blue-500 focus-within:ring focus-within:ring-blue-300 focus-within:text-black transition-colors [&:has(invalid)]:ring-red">
+        {children}
+      </div>
+      {error ? <span className="mt-2 text-red-500">{error}</span> : <span />}
+    </>
   );
 }
 
@@ -56,6 +61,8 @@ const allowedKeys = [
 
 export interface DateInputInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
+  control: Control<any, any>;
+  name: string;
   format?: 'yyyy-MM-dd' | 'MM-dd-yyyy' | 'dd-MM-yyyy' | 'dd/MM/yyyy';
   info?: string;
   invalidMessage?: string;
@@ -64,6 +71,8 @@ export interface DateInputInputProps
 }
 
 function DateInputInput({
+  control,
+  name,
   format = 'yyyy-MM-dd',
   invalidMessage = 'Invalid date',
   showAge = false,
@@ -80,7 +89,8 @@ function DateInputInput({
     if (!allowedKeys.includes(key)) event.preventDefault();
   };
 
-  const checkValue = (event: ChangeEvent<HTMLInputElement>) => {
+  const checkValue = (event: ChangeEvent<HTMLInputElement>, callback: any) => {
+    callback(event);
     const { value } = event.target;
 
     if (value.length === 10) {
@@ -106,29 +116,37 @@ function DateInputInput({
   };
 
   return (
-    <>
-      <input
-        className={clsx(
-          'bg-transparent flex-1 outline-none text-black text-xs placeholder:text-slate-300',
-          {
-            invalid: !isValid,
-          },
-        )}
-        maxLength={10}
-        onKeyDown={checkCharacters}
-        onChange={checkValue}
-        {...rest}
-      />
-      {infoMessage && (
-        <span
-          className={clsx('font-sans text-sm text-slate-300', {
-            'text-red-500': !isValid,
-          })}
-        >
-          {infoMessage}
-        </span>
+    <Controller
+      control={control}
+      name={name}
+      defaultValue=""
+      render={({ field: { value, onChange } }) => (
+        <>
+          <input
+            className={clsx(
+              'bg-transparent flex-1 outline-none text-black text-xs placeholder:text-slate-300',
+              {
+                invalid: !isValid,
+              },
+            )}
+            value={value}
+            maxLength={10}
+            onKeyDown={checkCharacters}
+            onChange={event => checkValue(event, onChange)}
+            {...rest}
+          />
+          {infoMessage && (
+            <span
+              className={clsx('font-sans text-sm text-slate-300', {
+                'text-red-500': !isValid,
+              })}
+            >
+              {infoMessage}
+            </span>
+          )}
+        </>
       )}
-    </>
+    />
   );
 }
 
