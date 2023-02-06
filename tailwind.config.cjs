@@ -18,12 +18,13 @@ module.exports = {
       yellow: '#F59E0B',
       red: {
         500: '#E11D48',
-        100: '#FCE8ED',
+        100: '#FEE2E2',
       },
       blue: {
         600: '#2563EB',
         500: '#3B82F6',
         300: '#93C5FD',
+        100: '#DBEAFE',
       },
       slate: {
         800: '#1E293B',

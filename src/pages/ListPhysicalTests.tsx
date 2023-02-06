@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
+  Binoculars,
   CalendarBlank,
   MagnifyingGlass,
   PlusCircle,
   UserCircle,
 } from 'phosphor-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { parseISO } from 'date-fns';
@@ -19,6 +21,7 @@ import { UserTemplate } from './templates/UserTemplate';
 import { DateInput } from '../components/DateInput';
 import { Button } from '../components/Button';
 import { Paginator, PaginatorProps } from '../components/Paginator';
+import { Alert } from '../components/Alert';
 
 interface PhysicalTest {
   id: string;
@@ -35,6 +38,9 @@ const formValidationSchema = zod.object({
 type FormProps = zod.infer<typeof formValidationSchema>;
 
 export function ListPhysicalTests() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [message, setMessage] = useState('');
   const [searchName, setSearchName] = useState('');
   const [searchDate, setSearchDate] = useState('');
   const [physicalTests, setPhysicalTests] = useState<PhysicalTest[]>([]);
@@ -69,8 +75,13 @@ export function ListPhysicalTests() {
   );
 
   useEffect(() => {
+    setMessage(location.state?.message || '');
     loadPhysicalTests({});
   }, [loadPhysicalTests]);
+
+  const navigateToNewPhysicalTest = () => {
+    navigate('/app/physical-tests/new');
+  };
 
   const handleSearch = (form: FormProps) => {
     const { name, date } = form;
@@ -100,12 +111,13 @@ export function ListPhysicalTests() {
       <Heading asChild size="md">
         <h2>Avaliações Físicas</h2>
       </Heading>
+      <Alert type="info" message={message} />
       <section>
         <div className="mt-8 flex justify-end">
           <Link
-            value="Cadastrar nova avaliação"
+            value="Cadastrar nova avaliação física"
             icon={PlusCircle}
-            action={() => console.log('Cadastrar nova avaliação')}
+            action={navigateToNewPhysicalTest}
           />
         </div>
         <form onSubmit={handleSubmit(handleSearch)}>
@@ -120,7 +132,7 @@ export function ListPhysicalTests() {
                 placeholder="Nome da pessoa"
               />
             </TextInput.Root>
-            <DateInput.Root>
+            <DateInput.Root error={formState.errors.date?.message}>
               <DateInput.Icon>
                 <CalendarBlank />
               </DateInput.Icon>
@@ -128,7 +140,7 @@ export function ListPhysicalTests() {
                 control={control}
                 name="date"
                 format="dd/MM/yyyy"
-                placeholder="31/01/2000"
+                placeholder="dia/mês/ano"
                 invalidMessage="Data inválida"
               />
             </DateInput.Root>
@@ -186,7 +198,10 @@ export function ListPhysicalTests() {
         )}
         {!physicalTests ||
           (physicalTests.length === 0 && (
-            <span>Nenhum resultado encontrado</span>
+            <div className="flex items-center justify-center gap-2">
+              <Binoculars size={24} />
+              <span>Nenhum resultado encontrado</span>
+            </div>
           ))}
       </section>
     </UserTemplate>

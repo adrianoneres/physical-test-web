@@ -1,16 +1,29 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { Slot } from '@radix-ui/react-slot';
+import clsx from 'clsx';
 
 export interface TextInputRootProps {
   children: ReactNode;
+  readonly?: boolean;
   error?: string;
 }
 
-function TextInputRoot({ children, error }: TextInputRootProps) {
+function TextInputRoot({
+  children,
+  readonly = false,
+  error,
+}: TextInputRootProps) {
   return (
     <>
-      <div className="w-full flex items-center gap-3 py-4 px-3 h-12 rounded border-2 bg-white border-slate-300 text-slate-300 focus-within:border-blue-500 focus-within:ring focus-within:ring-blue-300 focus-within:text-black transition-colors">
+      <div
+        className={clsx(
+          'w-full flex items-center gap-3 py-4 px-3 h-12 rounded border-2 bg-white border-slate-300 text-slate-300 focus-within:border-blue-500 focus-within:ring focus-within:ring-blue-300 focus-within:text-black transition-colors',
+          {
+            'bg-slate-100': readonly,
+          },
+        )}
+      >
         {children}
       </div>
       {error ? <span className="mt-2 text-red-500">{error}</span> : <span />}

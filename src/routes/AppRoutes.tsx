@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/auth';
 
 import { Dashboard } from '../pages/Dashboard';
 import { ListPhysicalTests } from '../pages/ListPhysicalTests';
+import { PhysicalTestForm } from '../pages/PhysicalTestForm';
 import { SignIn } from '../pages/SignIn';
 
 export function AppRoutes() {
@@ -25,6 +26,7 @@ export function AppRoutes() {
         { path: '', element: <Navigate to="dashboard" /> },
         { path: 'dashboard', element: <Dashboard /> },
         { path: 'physical-tests', element: <ListPhysicalTests /> },
+        { path: 'physical-tests/new', element: <PhysicalTestForm /> },
       ],
     },
   ]);

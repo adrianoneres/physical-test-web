@@ -11,7 +11,7 @@ export function Alert({ message, type = 'error' }: AlertProps) {
       className={clsx(
         'w-full flex items-center py-4 px-3 h-12 border-2 my-4 rounded',
         {
-          'bg-blue-300': type === 'info',
+          'bg-blue-100': type === 'info',
           'border-blue-500': type === 'info',
           'text-blue-500': type === 'info',
           'bg-red-100': type === 'error',

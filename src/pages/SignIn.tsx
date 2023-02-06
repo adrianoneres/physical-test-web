@@ -11,7 +11,7 @@ import { Text } from '../components/Text';
 import { TextInput } from '../components/TextInput';
 import { useAuth } from '../contexts/auth';
 import { Alert } from '../components/Alert';
-import { AppError, handleError } from '../components/errors/AppError';
+import { AppError, handleError } from '../errors/AppError';
 import { PublicTemplate } from './templates/PublicTemplate';
 
 const formValidationSchema = zod.object({
