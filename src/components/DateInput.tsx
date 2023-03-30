@@ -6,7 +6,6 @@ import {
   useState,
 } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 
 import { differenceInYears } from 'date-fns/esm';
@@ -35,7 +34,7 @@ export interface DateInputIconProps {
 }
 
 function DateInputIcon({ children }: DateInputIconProps) {
-  return <Slot className="w-6 h-6">{children}</Slot>;
+  return <span className="w-6 h-6">{children}</span>;
 }
 
 DateInputIcon.displayName = 'DateInput.Icon';
@@ -45,6 +44,7 @@ const allowedKeys = [
   'ArrowRight',
   'Backspace',
   'Delete',
+  'Tab',
   '-',
   '/',
   '0',

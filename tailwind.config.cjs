@@ -17,6 +17,7 @@ module.exports = {
       green: '#22C55E',
       yellow: '#F59E0B',
       red: {
+        600: '#DC2626',
         500: '#E11D48',
         100: '#FEE2E2',
       },
@@ -29,6 +30,7 @@ module.exports = {
       slate: {
         800: '#1E293B',
         300: '#CBD5E1',
+        200: '#E2E8F0',
         100: '#F1F5F9',
       },
     },

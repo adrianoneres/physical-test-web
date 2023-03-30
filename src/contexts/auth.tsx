@@ -40,7 +40,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const [accessToken, setAccessToken] = useState(''); // eslint-disable-line
 
   function getUser(): UserProps | null {
-    const storedUser = localStorage.getItem(STORAGE_USER);
+    const storedUser = window.localStorage.getItem(STORAGE_USER);
 
     if (storedUser) {
       return JSON.parse(storedUser);
@@ -55,8 +55,14 @@ function AuthProvider({ children }: AuthProviderProps) {
       password,
     });
 
-    localStorage.setItem(STORAGE_USER, JSON.stringify(response.data.user));
-    localStorage.setItem(STORAGE_ACCESS_TOKEN, response.data.access_token);
+    window.localStorage.setItem(
+      STORAGE_USER,
+      JSON.stringify(response.data.user),
+    );
+    window.localStorage.setItem(
+      STORAGE_ACCESS_TOKEN,
+      response.data.access_token,
+    );
 
     api.defaults.headers.common.Authorization = `Bearer ${response.data.access_token}`;
 
@@ -64,16 +70,17 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
 
   async function signOut() {
-    localStorage.removeItem(STORAGE_USER);
-    localStorage.removeItem(STORAGE_ACCESS_TOKEN);
+    window.localStorage.removeItem(STORAGE_USER);
+    window.localStorage.removeItem(STORAGE_ACCESS_TOKEN);
 
     setUser({} as UserProps);
   }
 
   useEffect(() => {
     async function loadUserStorageData(): Promise<void> {
-      const storedUser = localStorage.getItem(STORAGE_USER);
-      const storedAccessToken = localStorage.getItem(STORAGE_ACCESS_TOKEN);
+      const storedUser = window.localStorage.getItem(STORAGE_USER);
+      const storedAccessToken =
+        window.localStorage.getItem(STORAGE_ACCESS_TOKEN);
 
       if (storedUser) {
         const storedUserData = JSON.parse(storedUser);
@@ -89,7 +96,11 @@ function AuthProvider({ children }: AuthProviderProps) {
       api.interceptors.response.use(
         response => response,
         async error => {
-          if (error.response && error.response.status === 401) {
+          if (
+            error.response &&
+            error.response.status === 401 &&
+            error.response.data.message === 'token: invalid'
+          ) {
             signOut();
           }
 
@@ -100,7 +111,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     loadUserStorageData();
     setInterceptors();
-  }, []);
+  }, [setUser, setAccessToken]);
 
   return (
     <AuthContext.Provider value={{ getUser, signIn, signOut }}>

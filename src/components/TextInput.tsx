@@ -1,6 +1,5 @@
 import { InputHTMLAttributes, ReactNode } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { Slot } from '@radix-ui/react-slot';
 import clsx from 'clsx';
 
 export interface TextInputRootProps {
@@ -38,7 +37,7 @@ export interface TextInputIconProps {
 }
 
 function TextInputIcon({ children }: TextInputIconProps) {
-  return <Slot className="w-6 h-6">{children}</Slot>;
+  return <span className="w-6 h-6">{children}</span>;
 }
 
 TextInputIcon.displayName = 'TextInput.Icon';

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
 export interface AlertProps {
   message: string;
@@ -6,7 +7,13 @@ export interface AlertProps {
 }
 
 export function Alert({ message, type = 'error' }: AlertProps) {
-  return message ? (
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setVisible(false), 10000);
+  }, [setVisible]);
+
+  return visible && message ? (
     <div
       className={clsx(
         'w-full flex items-center py-4 px-3 h-12 border-2 my-4 rounded',

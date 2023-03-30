@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Slot } from '@radix-ui/react-slot';
 
 export interface CardProps {
   action: () => void;
@@ -30,7 +29,7 @@ export interface CardIconProps {
 function CardIcon({ children }: CardIconProps) {
   return (
     <div className="h-[140px] flex items-center justify-center">
-      <Slot className="w-14 h-14">{children}</Slot>
+      <span className="w-14 h-14">{children}</span>
     </div>
   );
 }

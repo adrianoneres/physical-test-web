@@ -3,8 +3,12 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 import { useAuth } from '../contexts/auth';
 
 import { Dashboard } from '../pages/Dashboard';
-import { ListPhysicalTests } from '../pages/ListPhysicalTests';
-import { PhysicalTestForm } from '../pages/PhysicalTestForm';
+import { InstitutionForm } from '../pages/Institution/InstitutionForm';
+import { InstitutionsList } from '../pages/Institution/InstitutionsList';
+import { ProfessionalForm } from '../pages/Professional/ProfessionalForm';
+import { ProfessionalsList } from '../pages/Professional/ProfessionalsList';
+import { PhysicalTestsList } from '../pages/PhysicalTests/PhysicalTestsList';
+import { PhysicalTestForm } from '../pages/PhysicalTests/PhysicalTestForm';
 import { SignIn } from '../pages/SignIn';
 
 export function AppRoutes() {
@@ -25,8 +29,12 @@ export function AppRoutes() {
       children: [
         { path: '', element: <Navigate to="dashboard" /> },
         { path: 'dashboard', element: <Dashboard /> },
-        { path: 'physical-tests', element: <ListPhysicalTests /> },
-        { path: 'physical-tests/new', element: <PhysicalTestForm /> },
+        { path: 'institutions', element: <InstitutionsList /> },
+        { path: 'institutions/form', element: <InstitutionForm /> },
+        { path: 'professionals', element: <ProfessionalsList /> },
+        { path: 'professionals/form', element: <ProfessionalForm /> },
+        { path: 'physical-tests', element: <PhysicalTestsList /> },
+        { path: 'physical-tests/form', element: <PhysicalTestForm /> },
       ],
     },
   ]);

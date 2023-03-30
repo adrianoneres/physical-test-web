@@ -5,14 +5,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import * as zod from 'zod';
 
-import { Button } from '../components/Button';
-import { Heading } from '../components/Heading';
-import { Text } from '../components/Text';
-import { TextInput } from '../components/TextInput';
-import { useAuth } from '../contexts/auth';
-import { Alert } from '../components/Alert';
-import { AppError, handleError } from '../errors/AppError';
-import { PublicTemplate } from './templates/PublicTemplate';
+import { Button } from '../../components/Button';
+import { Heading } from '../../components/Heading';
+import { Text } from '../../components/Text';
+import { TextInput } from '../../components/TextInput';
+import { useAuth } from '../../contexts/auth';
+import { Alert } from '../../components/Alert';
+import { AppError, handleError } from '../../errors/AppError';
+import { PublicTemplate } from '../templates/PublicTemplate';
 
 const formValidationSchema = zod.object({
   username: zod.string().min(1, 'Nome de usuário é obrigatório'),
@@ -47,7 +47,7 @@ export function SignIn() {
         handleError(error, setErrorMessage, message);
       }
     },
-    [signIn],
+    [signIn, navigate],
   );
 
   return (
@@ -73,7 +73,7 @@ export function SignIn() {
               </Text>
               <TextInput.Root error={formState.errors.username?.message}>
                 <TextInput.Icon>
-                  <UserCircle />
+                  <UserCircle size={24} />
                 </TextInput.Icon>
                 <TextInput.Input
                   control={control}
@@ -88,7 +88,7 @@ export function SignIn() {
               </Text>
               <TextInput.Root error={formState.errors.password?.message}>
                 <TextInput.Icon>
-                  <Lock />
+                  <Lock size={24} />
                 </TextInput.Icon>
                 <TextInput.Input
                   type="password"

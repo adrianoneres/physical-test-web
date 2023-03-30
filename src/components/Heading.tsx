@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx';
 
 export interface HeadingProps {
@@ -9,7 +8,7 @@ export interface HeadingProps {
 }
 
 export function Heading({ size = 'md', asChild, children }: HeadingProps) {
-  const Tag = asChild ? Slot : 'h2';
+  const Tag = asChild ? 'span' : 'h2';
 
   return (
     <Tag

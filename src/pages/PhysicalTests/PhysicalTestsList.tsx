@@ -12,16 +12,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { parseISO } from 'date-fns';
 import * as zod from 'zod';
 
-import { api } from '../services/api';
-import { DateHelper } from '../helpers/DateHelper';
-import { Heading } from '../components/Heading';
-import { Link } from '../components/Link';
-import { TextInput } from '../components/TextInput';
-import { UserTemplate } from './templates/UserTemplate';
-import { DateInput } from '../components/DateInput';
-import { Button } from '../components/Button';
-import { Paginator, PaginatorProps } from '../components/Paginator';
-import { Alert } from '../components/Alert';
+import { api } from '../../services/api';
+import { DateHelper } from '../../helpers/DateHelper';
+import { Heading } from '../../components/Heading';
+import { Link } from '../../components/Link';
+import { TextInput } from '../../components/TextInput';
+import { UserTemplate } from '../templates/UserTemplate';
+import { DateInput } from '../../components/DateInput';
+import { Button } from '../../components/Button';
+import { Paginator, PaginatorProps } from '../../components/Paginator';
+import { Alert } from '../../components/Alert';
+import { Breadcrumb } from '../../components/Breadcrumb';
+import { DeleteButton } from '../../components/DeleteButton';
+import { EditButton } from '../../components/EditButton';
 
 interface PhysicalTest {
   id: string;
@@ -37,7 +40,7 @@ const formValidationSchema = zod.object({
 
 type FormProps = zod.infer<typeof formValidationSchema>;
 
-export function ListPhysicalTests() {
+export function PhysicalTestsList() {
   const location = useLocation();
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
@@ -71,16 +74,16 @@ export function ListPhysicalTests() {
       setPhysicalTests(responseData);
       setPagination(paginationData);
     },
-    [],
+    [setPhysicalTests, setPagination],
   );
 
   useEffect(() => {
     setMessage(location.state?.message || '');
     loadPhysicalTests({});
-  }, [loadPhysicalTests]);
+  }, [location.state, loadPhysicalTests]);
 
   const navigateToNewPhysicalTest = () => {
-    navigate('/app/physical-tests/new');
+    navigate('/app/physical-tests/form');
   };
 
   const handleSearch = (form: FormProps) => {
@@ -106,8 +109,22 @@ export function ListPhysicalTests() {
     loadPhysicalTests({});
   };
 
+  const handleEdit = (id: string) => {
+    navigate('/app/physical-tests/form', {
+      state: { id },
+    });
+  };
+
+  const handleDelete = async (id: string) => {
+    await api.delete(`/physical-tests/${id}`);
+
+    setMessage('Registro excluído com sucesso');
+    loadPhysicalTests({});
+  };
+
   return (
     <UserTemplate>
+      <Breadcrumb.Root />
       <Heading asChild size="md">
         <h2>Avaliações Físicas</h2>
       </Heading>
@@ -124,7 +141,7 @@ export function ListPhysicalTests() {
           <div className="w-full mt-8 flex gap-3">
             <TextInput.Root error={formState.errors.name?.message}>
               <TextInput.Icon>
-                <UserCircle />
+                <UserCircle size={24} />
               </TextInput.Icon>
               <TextInput.Input
                 control={control}
@@ -134,7 +151,7 @@ export function ListPhysicalTests() {
             </TextInput.Root>
             <DateInput.Root error={formState.errors.date?.message}>
               <DateInput.Icon>
-                <CalendarBlank />
+                <CalendarBlank size={24} />
               </DateInput.Icon>
               <DateInput.Input
                 control={control}
@@ -167,13 +184,14 @@ export function ListPhysicalTests() {
                   <th className="text-start py-4 px-3">Nome</th>
                   <th className="text-start py-4 px-3">Data de Nascimento</th>
                   <th className="text-start py-4 px-3">Data da Avaliação</th>
+                  <th className="w-32"></th>
                 </tr>
               </thead>
               <tbody>
                 {physicalTests.map(physicalTest => (
                   <tr
                     key={physicalTest.id}
-                    className="border-t-[1px] border-slate-300 even:bg-white hover:bg-slate-300 hover:cursor-pointer"
+                    className="border-t-[1px] border-slate-300 even:bg-white hover:bg-slate-200 hover:cursor-default"
                   >
                     <td className="text-start py-4 px-3">
                       {physicalTest.name}
@@ -183,6 +201,12 @@ export function ListPhysicalTests() {
                     </td>
                     <td className="text-start py-4 px-3">
                       {physicalTest.date}
+                    </td>
+                    <td className="text-center py-4 px-3 flex flex-1 gap-4 items-center justify-center">
+                      <DeleteButton
+                        action={() => handleDelete(physicalTest.id)}
+                      />
+                      <EditButton action={() => handleEdit(physicalTest.id)} />
                     </td>
                   </tr>
                 ))}
