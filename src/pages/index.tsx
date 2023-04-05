@@ -1,25 +1,20 @@
-import { styled } from '@/styles';
+import { useContext, useEffect } from 'react';
 
-const Button = styled('button', {
-  backgroundColor: '$danger',
-  color: '$white',
-  borderRadius: 4,
-  border: 0,
-  padding: '4px 8px',
-
-  span: {
-    fontWeight: 'bold',
-  },
-
-  '&:hover': {
-    filter: 'brightness(1.1)',
-  },
-});
+import { AuthContext } from '@/contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  return (
-    <Button>
-      <span>Test</span>Enviar
-    </Button>
-  );
+  const routes = useRouter();
+  const { isAuthenticated } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+    if (isAuthenticated) {
+      routes.push('/dashboard');
+    } else {
+      routes.push('/signin');
+    }
+  }, [isAuthenticated]);
+
+  return;
 }
