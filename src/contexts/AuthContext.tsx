@@ -1,10 +1,11 @@
 import { createContext, useState, ReactNode } from 'react';
-import { setCookie } from 'nookies';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { useRouter } from 'next/router';
 
 import { ACCESS_TOKEN, getApiClient } from '@/services/api';
+import jwtDecode from 'jwt-decode';
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
@@ -18,8 +19,9 @@ interface SignInProps {
 
 type AuthContextType = {
   isAuthenticated: boolean;
-  user: User | null;
+  getUser: () => User | null;
   signIn: (props: SignInProps) => Promise<void>;
+  signOut: () => Promise<void>;
 };
 
 interface AuthProviderProps {
@@ -34,6 +36,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const isAuthenticated = !!user;
   const api = getApiClient();
+
+  function getUser() {
+    if (user) {
+      return user;
+    }
+
+    const cookies = parseCookies();
+    const token = cookies?.[ACCESS_TOKEN];
+
+    if (token) {
+      const { sub, name, email, username } = jwtDecode<any>(token);
+
+      const tokenUser = {
+        id: sub,
+        name,
+        email,
+        username,
+      } as User;
+
+      setUser(tokenUser);
+
+      return tokenUser;
+    }
+
+    return null;
+  }
 
   async function signIn({ username, password }: SignInProps) {
     const response = await api.post('/sign-in', {
@@ -52,8 +80,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     router.push('/dashboard');
   }
 
+  async function signOut() {
+    destroyCookie(undefined, ACCESS_TOKEN);
+
+    router.push('/signin');
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, getUser, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

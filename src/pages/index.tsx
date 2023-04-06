@@ -4,15 +4,14 @@ import { AuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/router';
 
 export default function Home() {
-  const routes = useRouter();
+  const router = useRouter();
   const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
-      routes.push('/dashboard');
+      router.push('/dashboard');
     } else {
-      routes.push('/signin');
+      router.push('/signin');
     }
   }, [isAuthenticated]);
 
