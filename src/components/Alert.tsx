@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
 import ExclamationTriangleIcon from '@heroicons/react/24/outline/ExclamationTriangleIcon';
 import XCircleIcon from '@heroicons/react/24/outline/XCircleIcon';
