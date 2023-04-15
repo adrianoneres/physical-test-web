@@ -34,7 +34,7 @@ export default function Select({
     const selectedOption =
       options.find(option => option.value === selectedValue) || null;
     setSelected(selectedOption);
-  }, []);
+  }, [control._formValues, name, options]);
 
   const handleSelect = (value: any, onChange: any) => {
     const selectedOption: SelectOption | null =
@@ -48,15 +48,11 @@ export default function Select({
     }
   };
 
-  const handleSetValue = (value: any) => {
-    console.log('>> handleSetValue', value);
-  };
-
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field: { value, onChange } }) => (
+      render={({ field: { onChange } }) => (
         <div className="w-full flex flex-col my-4">
           <label htmlFor={name} className="ml-1 mb-1 text-sm text-gray-500">
             {label}
@@ -129,6 +125,11 @@ export default function Select({
               </Transition>
             </div>
           </Listbox>
+          {!!error && (
+            <span className="ml-1 mt-1 font-sans text-sm text-danger-500">
+              {error}
+            </span>
+          )}
         </div>
       )}
     />

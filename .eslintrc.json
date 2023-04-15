@@ -19,6 +19,7 @@
     "operator-linebreak": "off",
     "object-curly-newline": "off",
     "camelcase": "off",
+    "no-underscore-dangle": "off",
     "react/jsx-wrap-multilines": "off",
     "implicit-arrow-linebreak": "off",
     "react/react-in-jsx-scope": "off",

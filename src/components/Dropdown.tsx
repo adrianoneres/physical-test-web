@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { useRouter } from 'next/router';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
@@ -29,16 +28,6 @@ export function Dropdown({
   items: groups,
   showArrow = false,
 }: DropdownProps) {
-  const router = useRouter();
-
-  const handleAction = (action: string | Function) => {
-    if (typeof action === 'string') {
-      router.push(action);
-    } else {
-      action();
-    }
-  };
-
   return (
     <div className="">
       <Menu as="div" className="relative inline-block text-left">

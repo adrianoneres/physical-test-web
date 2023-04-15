@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   ArrowLeftOnRectangleIcon as ArrowLeftOnRectangleOutlineIcon,
@@ -29,7 +29,12 @@ export function Header() {
   return (
     <div className="px-2 bg-slate-800">
       <div className="w-full max-w-5xl py-2 mx-auto flex justify-between items-center">
-        <div className="text-lg text-white">🫀 Testes físicos</div>
+        <a
+          onClick={() => router.push('/dashboard')}
+          className="text-lg text-white cursor-pointer"
+        >
+          🫀 Avaliações Físicas
+        </a>
         <nav className="flex gap-4">
           <Dropdown
             label="Cadastros"
@@ -64,10 +69,27 @@ export function Header() {
               },
             ]}
           />
+          <Dropdown
+            label="Relatórios"
+            showArrow={false}
+            items={[
+              {
+                name: 'default',
+                items: [
+                  {
+                    label: 'Avaliações Físicas',
+                    action: () => router.push('/reports/physical-tests'),
+                    icon: HeartOutlineIcon,
+                    iconHover: HeartSolidIcon,
+                  },
+                ],
+              },
+            ]}
+          />
           <div className="border-l border-l-slate-600 ml-2 mr-2"></div>
           <Dropdown
             label={user?.name || ''}
-            showArrow={true}
+            showArrow
             items={[
               {
                 name: 'default',

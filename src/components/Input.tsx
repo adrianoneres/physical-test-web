@@ -55,6 +55,6 @@ export function Input({
           )}
         </div>
       )}
-    ></Controller>
+    />
   );
 }

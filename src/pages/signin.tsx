@@ -1,6 +1,7 @@
 import { useCallback, useContext, useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
@@ -33,49 +34,60 @@ export default function SignIn() {
     defaultValues: formDefaultValues,
   });
 
-  const handleSignIn = useCallback(async (formData: FormProps) => {
-    try {
-      setErrorMessage('');
-      setLoading(true);
-      await signIn(formData);
-      router.push('/dashboard');
-    } catch (error) {
-      const appError = error as AppError;
-      const message =
-        appError.response.status === 400 ? 'Usuário ou senha inválidos' : '';
-      handleError(error, setErrorMessage, message);
-      setLoading(false);
-    }
-  }, []);
+  const handleSignIn = useCallback(
+    async (formData: FormProps) => {
+      try {
+        setErrorMessage('');
+        setLoading(true);
+        await signIn(formData);
+        await router.push('/dashboard');
+      } catch (error) {
+        const appError = error as AppError;
+        const message =
+          appError.response.status === 400 ? 'Usuário ou senha inválidos' : '';
+        handleError(error, setErrorMessage, message);
+        setLoading(false);
+      }
+    },
+    [router, signIn],
+  );
 
   return (
-    <main className="w-full h-screen flex flex-col bg-slate-100 items-center justify-center">
-      <section className="w-full max-w-sm">
-        <h1 className="text-2xl text-center">🫀</h1>
-        <div className="mt-8">
-          <Alert message={errorMessage} type="danger" />
-          <form onSubmit={handleSubmit(handleSignIn)}>
-            <Input
-              control={control}
-              label="Login"
-              name="username"
-              placeholder="Nome de usuário"
-              error={formState.errors.username?.message}
-            />
-            <Input
-              control={control}
-              type="password"
-              label="Senha"
-              name="password"
-              placeholder="Sua senha secreta"
-              error={formState.errors.password?.message}
-            />
-            <Button type="submit" size="fluid" loading={loading}>
-              Entrar
-            </Button>
-          </form>
-        </div>
-      </section>
-    </main>
+    <>
+      <Head>
+        <title>Avaliações Físicas | Login</title>
+      </Head>
+
+      <main className="w-full h-screen flex flex-col bg-slate-100 items-center justify-center">
+        <section className="w-full max-w-sm">
+          <h1 className="text-2xl text-center font-bold">
+            🫀 Avaliações Físicas
+          </h1>
+          <div className="mt-8">
+            <Alert message={errorMessage} type="danger" />
+            <form onSubmit={handleSubmit(handleSignIn)}>
+              <Input
+                control={control}
+                label="Login"
+                name="username"
+                placeholder="Nome de usuário"
+                error={formState.errors.username?.message}
+              />
+              <Input
+                control={control}
+                type="password"
+                label="Senha"
+                name="password"
+                placeholder="Sua senha secreta"
+                error={formState.errors.password?.message}
+              />
+              <Button type="submit" size="fluid" loading={loading}>
+                Entrar
+              </Button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }

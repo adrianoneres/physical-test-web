@@ -1,9 +1,9 @@
 import { createContext, useState, ReactNode } from 'react';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { useRouter } from 'next/router';
+import jwtDecode from 'jwt-decode';
 
 import { ACCESS_TOKEN, getApiClient } from '@/services/api';
-import jwtDecode from 'jwt-decode';
 
 export interface User {
   id: string;
@@ -18,9 +18,8 @@ interface SignInProps {
 }
 
 type AuthContextType = {
-  isAuthenticated: boolean;
   getUser: () => User | null;
-  signIn: (props: SignInProps) => Promise<void>;
+  signIn: (props: SignInProps) => Promise<void>; // eslint-disable-line no-unused-vars
   signOut: () => Promise<void>;
 };
 
@@ -34,7 +33,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
-  const isAuthenticated = !!user;
   const api = getApiClient();
 
   function getUser() {
@@ -87,7 +85,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, getUser, signIn, signOut }}>
+    <AuthContext.Provider value={{ getUser, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
