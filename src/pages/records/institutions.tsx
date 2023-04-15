@@ -1,20 +1,13 @@
 import { GetServerSideProps } from 'next';
-import Head from 'next/head';
 
 import { isAuthenticated } from '@/helpers/auth.helper';
-import { Header } from '@/components/Header';
+import { PrivateLayout } from '@/layouts/PrivateLayout';
 
 export default function Institutions() {
   return (
-    <>
-      <Head>
-        <title>Avaliações Físicas | Listagem de Polos</title>
-      </Head>
-      <main className="bg-slate-100 min-h-screen">
-        <Header />
-        <h1>Institutions Records</h1>
-      </main>
-    </>
+    <PrivateLayout title="Listagem de Polos">
+      <p>Content</p>
+    </PrivateLayout>
   );
 }
 

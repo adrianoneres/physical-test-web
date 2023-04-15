@@ -27,7 +27,7 @@ export function Header() {
   }, [getUser, setUser]);
 
   return (
-    <div className="px-2 bg-slate-800">
+    <header className="px-2 bg-slate-800">
       <div className="w-full max-w-5xl py-2 mx-auto flex justify-between items-center">
         <a
           onClick={() => router.push('/dashboard')}
@@ -106,6 +106,6 @@ export function Header() {
           />
         </nav>
       </div>
-    </div>
+    </header>
   );
 }
