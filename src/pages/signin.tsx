@@ -25,11 +25,15 @@ const formDefaultValues: FormProps = {
 };
 
 export default function SignIn() {
-  const [loading, setLoading] = useState(false);
-  const [alert, setAlert] = useState<AlertProps | null>({} as AlertProps);
   const router = useRouter();
   const { signIn } = useAuth();
-  const { control, handleSubmit, formState } = useForm<FormProps>({
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState<AlertProps | null>({} as AlertProps);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormProps>({
     resolver: zodResolver(formSchema),
     defaultValues: formDefaultValues,
   });
@@ -65,7 +69,7 @@ export default function SignIn() {
           label="Login"
           name="username"
           placeholder="Nome de usuário"
-          error={formState.errors.username?.message}
+          error={errors.username?.message}
         />
         <Input
           control={control}
@@ -73,7 +77,7 @@ export default function SignIn() {
           label="Senha"
           name="password"
           placeholder="Sua senha secreta"
-          error={formState.errors.password?.message}
+          error={errors.password?.message}
         />
         <Button type="submit" size="fluid" loading={loading}>
           Entrar

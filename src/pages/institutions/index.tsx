@@ -1,8 +1,8 @@
 import { PrivateLayout } from '@/layouts/PrivateLayout';
 
-export default function PhysicalTests() {
+export default function Institutions() {
   return (
-    <PrivateLayout title="Listagem de Avaliações Físicas">
+    <PrivateLayout title="Polos">
       <p>Content</p>
     </PrivateLayout>
   );

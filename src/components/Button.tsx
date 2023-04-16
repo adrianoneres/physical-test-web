@@ -26,7 +26,7 @@ export function Button({
     <button
       {...rest}
       className={clsx(
-        'h-9 rounded-lg px-3 bg-blue-500 text-sm text-white hover:bg-blue-600 transition-colors',
+        'h-9 px-3 flex items-center justify-center gap-1 rounded-lg bg-blue-500 text-sm text-white hover:bg-blue-600 transition-colors',
         {
           'w-full': size === 'fluid',
           'opacity-80': disabled || loading,

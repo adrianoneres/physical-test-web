@@ -44,13 +44,13 @@ export function Header() {
                 items: [
                   {
                     label: 'Avaliadores',
-                    action: () => router.push('/records/professionals'),
+                    action: () => router.push('/professionals'),
                     icon: UserCircleOutlineIcon,
                     iconHover: UserCircleSolidIcon,
                   },
                   {
                     label: 'Polos',
-                    action: () => router.push('/records/institutions'),
+                    action: () => router.push('/institutions'),
                     icon: HomeModernOutlineIcon,
                     iconHover: HomeModernSolidIcon,
                   },
@@ -61,7 +61,7 @@ export function Header() {
                 items: [
                   {
                     label: 'Avaliações Físicas',
-                    action: () => router.push('/records/physical-tests'),
+                    action: () => router.push('/physical-tests'),
                     icon: HeartOutlineIcon,
                     iconHover: HeartSolidIcon,
                   },
@@ -78,7 +78,7 @@ export function Header() {
                 items: [
                   {
                     label: 'Avaliações Físicas',
-                    action: () => router.push('/reports/physical-tests'),
+                    action: () => router.push('/physical-tests/report'),
                     icon: HeartOutlineIcon,
                     iconHover: HeartSolidIcon,
                   },
