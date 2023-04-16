@@ -1,13 +1,13 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-import { AuthContext } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { Input } from '@/components/Input';
 
-import { Alert } from '@/components/Alert';
+import { Alert, AlertProps } from '@/components/Alert';
 import { Button } from '@/components/Button';
 import { AppError, handleError } from '@/errors/AppError';
 import { PublicLayout } from '@/layouts/PublicLayout';
@@ -26,9 +26,9 @@ const formDefaultValues: FormProps = {
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [alert, setAlert] = useState<AlertProps | null>({} as AlertProps);
   const router = useRouter();
-  const { signIn } = useContext(AuthContext);
+  const { signIn } = useAuth();
   const { control, handleSubmit, formState } = useForm<FormProps>({
     resolver: zodResolver(formSchema),
     defaultValues: formDefaultValues,
@@ -37,7 +37,7 @@ export default function SignIn() {
   const handleSignIn = useCallback(
     async (formData: FormProps) => {
       try {
-        setErrorMessage('');
+        setAlert({} as AlertProps);
         setLoading(true);
         await signIn(formData);
         await router.push('/dashboard');
@@ -45,7 +45,11 @@ export default function SignIn() {
         const appError = error as AppError;
         const message =
           appError.response.status === 400 ? 'Usuário ou senha inválidos' : '';
-        handleError(error, setErrorMessage, message);
+        handleError({
+          error,
+          message,
+          action: setAlert,
+        });
         setLoading(false);
       }
     },
@@ -54,7 +58,7 @@ export default function SignIn() {
 
   return (
     <PublicLayout>
-      <Alert message={errorMessage} type="danger" />
+      <Alert message={alert?.message} type={alert?.type} />
       <form onSubmit={handleSubmit(handleSignIn)}>
         <Input
           control={control}

@@ -3,8 +3,8 @@ import ExclamationTriangleIcon from '@heroicons/react/24/outline/ExclamationTria
 import XCircleIcon from '@heroicons/react/24/outline/XCircleIcon';
 import clsx from 'clsx';
 
-interface AlertProps {
-  message: string;
+export interface AlertProps {
+  message?: string;
   type?: 'danger' | 'warning' | 'success';
 }
 

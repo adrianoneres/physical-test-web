@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   ArrowLeftOnRectangleIcon as ArrowLeftOnRectangleOutlineIcon,
@@ -13,13 +13,13 @@ import {
   UserCircleIcon as UserCircleSolidIcon,
 } from '@heroicons/react/24/solid';
 
-import { AuthContext, User } from '@/contexts/AuthContext';
+import { User, useAuth } from '@/contexts/AuthContext';
 import { Dropdown } from './Dropdown';
 
 export function Header() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const { getUser, signOut } = useContext(AuthContext);
+  const { getUser, signOut } = useAuth();
 
   useEffect(() => {
     const storedUser = getUser();

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type IconType = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
     title?: string;

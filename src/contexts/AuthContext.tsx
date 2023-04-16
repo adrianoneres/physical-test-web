@@ -1,4 +1,10 @@
-import { createContext, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useState,
+  ReactNode,
+  useContext,
+  useCallback,
+} from 'react';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import { useRouter } from 'next/router';
 import jwtDecode from 'jwt-decode';
@@ -27,15 +33,15 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthContext = createContext({} as AuthContextType);
+const AuthContext = createContext({} as AuthContextType);
 
-export function AuthProvider({ children }: AuthProviderProps) {
+function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
 
   const api = getApiClient();
 
-  function getUser() {
+  const getUser = useCallback(() => {
     if (user) {
       return user;
     }
@@ -59,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return null;
-  }
+  }, [user]);
 
   async function signIn({ username, password }: SignInProps) {
     const response = await api.post('/sign-in', {
@@ -80,6 +86,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signOut() {
     destroyCookie(undefined, ACCESS_TOKEN);
+    setUser(null);
 
     router.push('/signin');
   }
@@ -90,3 +97,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     </AuthContext.Provider>
   );
 }
+
+function useAuth() {
+  const context = useContext(AuthContext);
+  return context;
+}
+
+export { AuthProvider, useAuth };
