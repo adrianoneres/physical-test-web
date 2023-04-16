@@ -105,8 +105,8 @@ export function TableList({
                             item[columns[0].field]
                           }?`}
                           action={() => actionDelete?.(item.id)}
-                          actionLabel="Sim, excluir"
-                          cancelLabel="Não, cancelar"
+                          actionLabel="Excluir"
+                          cancelLabel="Cancelar"
                           className="text-sm"
                         />
                       </td>
