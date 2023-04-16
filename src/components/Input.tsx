@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, KeyboardEvent } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import clsx from 'clsx';
 
@@ -6,10 +6,32 @@ export interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
   control: Control<any, any>;
   label: string;
   name: string;
+  type?: 'text' | 'number';
+  decimal?: boolean;
   error?: string;
   placeholder?: string;
   readonly?: boolean;
+  className?: string;
 }
+
+const allowedDefaultCharacters = [
+  'Tab',
+  'Backspace',
+  'Delete',
+  'ArrowLeft',
+  'ArrowRight',
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+];
+const allowdSpecialCharacters = ['.', ','];
 
 export function Input({
   control,
@@ -17,16 +39,34 @@ export function Input({
   name,
   error,
   placeholder = '',
+  type = 'text',
   readonly = false,
+  decimal = false,
+  className,
   ...rest
 }: InputTextProps) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const isNumber = type === 'number';
+    const isTypedNumber = allowedDefaultCharacters.includes(e.key);
+    const isTypedSpecialCharacter = allowdSpecialCharacters.includes(e.key);
+
+    if (isNumber) {
+      if (decimal && !isTypedNumber && !isTypedSpecialCharacter) {
+        e.preventDefault();
+      }
+      if (!decimal && !isTypedNumber) {
+        e.preventDefault();
+      }
+    }
+  };
+
   return (
     <Controller
       control={control}
       name={name}
       defaultValue=""
       render={({ field: { value, onChange } }) => (
-        <div className="w-full flex flex-col my-4">
+        <div className={`w-full flex flex-col mt-4 ${className}`}>
           <label htmlFor={name} className="ml-1 mb-1 text-sm text-gray-500">
             {label}
           </label>
@@ -43,16 +83,16 @@ export function Input({
               id={name}
               value={value}
               placeholder={placeholder}
+              onKeyDown={event => handleKeyDown(event)}
               onChange={onChange}
+              type={type}
               {...rest}
               className="flex-1 bg-transparent outline-none text-sm text-black placeholder:text-gray-300"
             />
           </div>
-          {!!error && (
-            <span className="ml-1 mt-1 font-sans text-sm text-danger-500">
-              {error}
-            </span>
-          )}
+          <span className="h-5 ml-1 mt-1 font-sans text-sm text-danger-500">
+            {!!error && error}
+          </span>
         </div>
       )}
     />

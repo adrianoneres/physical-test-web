@@ -18,6 +18,7 @@ export function Button({
   loading,
   children,
   size = 'default',
+  className,
   ...rest
 }: ButtonProps) {
   const isLoading = !!loading;
@@ -25,8 +26,9 @@ export function Button({
   return (
     <button
       {...rest}
+      disabled={isLoading}
       className={clsx(
-        'h-9 px-3 flex items-center justify-center gap-1 rounded-lg bg-blue-500 text-sm text-white hover:bg-blue-600 transition-colors',
+        `h-9 px-3 flex items-center justify-center gap-1 rounded-lg bg-blue-500 text-sm text-white hover:bg-blue-600 transition-colors ${className}`,
         {
           'w-full': size === 'fluid',
           'opacity-80': disabled || loading,

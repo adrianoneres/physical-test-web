@@ -69,23 +69,6 @@ export function Header() {
               },
             ]}
           />
-          <Dropdown
-            label="Relatórios"
-            showArrow={false}
-            items={[
-              {
-                name: 'default',
-                items: [
-                  {
-                    label: 'Avaliações Físicas',
-                    action: () => router.push('/physical-tests/report'),
-                    icon: HeartOutlineIcon,
-                    iconHover: HeartSolidIcon,
-                  },
-                ],
-              },
-            ]}
-          />
           <div className="border-l border-l-slate-600 ml-2 mr-2"></div>
           <Dropdown
             label={user?.name || ''}

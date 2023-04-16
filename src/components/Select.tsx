@@ -17,15 +17,19 @@ interface SelectProps {
   options: SelectOption[];
   onSelectionChange?: any;
   error?: string;
+  placeholder?: string;
+  className?: string;
 }
 
-export default function Select({
+export function Select({
   control,
   label,
   name,
   options,
   onSelectionChange,
   error,
+  placeholder,
+  className,
 }: SelectProps) {
   const [selected, setSelected] = useState<SelectOption | null>(null);
 
@@ -53,7 +57,7 @@ export default function Select({
       control={control}
       name={name}
       render={({ field: { onChange } }) => (
-        <div className="w-full flex flex-col my-4">
+        <div className={`w-full flex flex-col mt-4 ${className}`}>
           <label htmlFor={name} className="ml-1 mb-1 text-sm text-gray-500">
             {label}
           </label>
@@ -61,10 +65,10 @@ export default function Select({
             value={selected}
             onChange={selectedValue => handleSelect(selectedValue, onChange)}
           >
-            <div className="relative mt-1">
+            <div className="relative">
               <Listbox.Button
                 id={name}
-                className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
+                className="h-[36px] relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-blue-300 sm:text-sm"
               >
                 {selected && (
                   <span className="block truncate text-black">
@@ -73,7 +77,7 @@ export default function Select({
                 )}
                 {!selected && (
                   <span className="block truncate text-gray-300">
-                    Selecione
+                    {placeholder || 'Selecione'}
                   </span>
                 )}
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -89,7 +93,7 @@ export default function Select({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto z-10 rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {options.map(option => (
                     <Listbox.Option
                       key={option.value}
@@ -125,11 +129,9 @@ export default function Select({
               </Transition>
             </div>
           </Listbox>
-          {!!error && (
-            <span className="ml-1 mt-1 font-sans text-sm text-danger-500">
-              {error}
-            </span>
-          )}
+          <span className="h-5 ml-1 mt-1 font-sans text-sm text-danger-500">
+            {!!error && error}
+          </span>
         </div>
       )}
     />

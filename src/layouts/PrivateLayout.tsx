@@ -34,7 +34,7 @@ export function PrivateLayout({ title, children }: PrivateLayoutProps) {
         <title>{titleContent}</title>
       </Head>
 
-      <div className="w-full min-h-screen bg-slate-100">
+      <div className="w-full min-h-screen pb-12 bg-slate-100">
         <Header />
         <main className="w-full max-w-5xl m-auto px-4">
           <h1 className="mt-4 mb-6 text-xl text-slate-800 font-bold">
