@@ -30,34 +30,20 @@ const formSchema = z.object({
   birthdate: z.date({ required_error: 'Data de nascimento é obrigatória' }),
   height: z.string().nonempty('Altura é obrigatória'),
   weight: z.string().nonempty('Peso é obrigatório'),
-  flexibility_first_attempt: z.string().nonempty('Flexibilidade é obrigatória'),
-  flexibility_second_attempt: z
-    .string()
-    .nonempty('Flexibilidade é obrigatória'),
-  wingspan: z.string().nonempty('Envergadura é obrigatória'),
-  strength_resistance: z.string().nonempty('Força resistência é obrigatória'),
-  muscular_endurance_first_attempt: z
-    .string()
-    .nonempty('Resistência muscular é obrigatória'),
-  muscular_endurance_second_attempt: z
-    .string()
-    .nonempty('Resistência muscular é obrigatória'),
-  lower_limb_strength_first_attempt: z
-    .string()
-    .nonempty('Força explosiva é obrigatória'),
-  lower_limb_strength_second_attempt: z
-    .string()
-    .nonempty('Força explosiva é obrigatória'),
-  upper_limb_strength_first_attempt: z
-    .string()
-    .nonempty('Força explosiva é obrigatória'),
-  upper_limb_strength_second_attempt: z
-    .string()
-    .nonempty('Força explosiva é obrigatória'),
-  agility_first_attempt: z.string().nonempty('Agilidade é obrigatória'),
-  agility_second_attempt: z.string().nonempty('Agilidade é obrigatória'),
-  general_resistance: z.string().nonempty('Resistência geral é obrigatória'),
-  speed: z.string().nonempty('Velocidade é obrigatória'),
+  flexibility_first_attempt: z.string(),
+  flexibility_second_attempt: z.string(),
+  wingspan: z.string(),
+  strength_resistance: z.string(),
+  muscular_endurance_first_attempt: z.string(),
+  muscular_endurance_second_attempt: z.string(),
+  lower_limb_strength_first_attempt: z.string(),
+  lower_limb_strength_second_attempt: z.string(),
+  upper_limb_strength_first_attempt: z.string(),
+  upper_limb_strength_second_attempt: z.string(),
+  agility_first_attempt: z.string(),
+  agility_second_attempt: z.string(),
+  general_resistance: z.string(),
+  speed: z.string(),
 });
 
 type FormProps = z.infer<typeof formSchema>;
@@ -211,36 +197,30 @@ export default function PhysicalTestsEdit() {
           birthdate: format(formData.birthdate.toISOString(), 'yyyy-MM-dd'),
           height: parseNumber(formData.height),
           weight: parseNumber(formData.weight),
-          flexibility_first_attempt: parseNumber(
-            formData.flexibility_first_attempt,
-          ),
-          flexibility_second_attempt: parseNumber(
-            formData.flexibility_second_attempt,
-          ),
-          wingspan: parseNumber(formData.wingspan),
-          strength_resistance: parseNumber(formData.strength_resistance),
-          muscular_endurance_first_attempt: parseNumber(
-            formData.muscular_endurance_first_attempt,
-          ),
-          muscular_endurance_second_attempt: parseNumber(
-            formData.muscular_endurance_second_attempt,
-          ),
-          lower_limb_strength_first_attempt: parseNumber(
-            formData.lower_limb_strength_first_attempt,
-          ),
-          lower_limb_strength_second_attempt: parseNumber(
-            formData.lower_limb_strength_second_attempt,
-          ),
-          upper_limb_strength_first_attempt: parseNumber(
-            formData.upper_limb_strength_first_attempt,
-          ),
-          upper_limb_strength_second_attempt: parseNumber(
-            formData.upper_limb_strength_second_attempt,
-          ),
-          agility_first_attempt: parseNumber(formData.agility_first_attempt),
-          agility_second_attempt: parseNumber(formData.agility_second_attempt),
-          general_resistance: parseNumber(formData.general_resistance),
-          speed: parseNumber(formData.speed),
+          flexibility_first_attempt:
+            parseNumber(formData.flexibility_first_attempt) || 0,
+          flexibility_second_attempt:
+            parseNumber(formData.flexibility_second_attempt) || 0,
+          wingspan: parseNumber(formData.wingspan) || 0,
+          strength_resistance: parseNumber(formData.strength_resistance) || 0,
+          muscular_endurance_first_attempt:
+            parseNumber(formData.muscular_endurance_first_attempt) || 0,
+          muscular_endurance_second_attempt:
+            parseNumber(formData.muscular_endurance_second_attempt) || 0,
+          lower_limb_strength_first_attempt:
+            parseNumber(formData.lower_limb_strength_first_attempt) || 0,
+          lower_limb_strength_second_attempt:
+            parseNumber(formData.lower_limb_strength_second_attempt) || 0,
+          upper_limb_strength_first_attempt:
+            parseNumber(formData.upper_limb_strength_first_attempt) || 0,
+          upper_limb_strength_second_attempt:
+            parseNumber(formData.upper_limb_strength_second_attempt) || 0,
+          agility_first_attempt:
+            parseNumber(formData.agility_first_attempt) || 0,
+          agility_second_attempt:
+            parseNumber(formData.agility_second_attempt) || 0,
+          general_resistance: parseNumber(formData.general_resistance) || 0,
+          speed: parseNumber(formData.speed) || 0,
         };
         await getApiClient().put(`/physical-tests/${id}`, requestData);
         router.push({
@@ -386,7 +366,7 @@ export default function PhysicalTestsEdit() {
             control={control}
             type="number"
             step="1"
-            label="Força resistência (qtd)"
+            label="Força resistência (quantidade)"
             name="strength_resistance"
             placeholder="Força resistência do avaliado"
             error={errors.strength_resistance?.message}
@@ -399,7 +379,7 @@ export default function PhysicalTestsEdit() {
             control={control}
             type="number"
             step="0.01"
-            label="Resistência muscular - 1ª tentativa (qtd)"
+            label="Resistência muscular - 1ª tentativa (quantidade)"
             name="muscular_endurance_first_attempt"
             placeholder="1ª tentativa"
             error={errors.muscular_endurance_first_attempt?.message}
@@ -409,7 +389,7 @@ export default function PhysicalTestsEdit() {
             control={control}
             type="number"
             step="0.01"
-            label="Resistência muscular - 2ª tentativa (qtd)"
+            label="Resistência muscular - 2ª tentativa (quantidade)"
             name="muscular_endurance_second_attempt"
             placeholder="2ª tentativa"
             error={errors.muscular_endurance_second_attempt?.message}

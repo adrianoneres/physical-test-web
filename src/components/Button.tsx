@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'default' | 'fluid';
+  color?: 'default' | 'ghost';
   loading?: boolean;
   icon?: React.ForwardRefExoticComponent<
     React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
@@ -18,6 +19,7 @@ export function Button({
   loading,
   children,
   size = 'default',
+  color = 'default',
   className,
   ...rest
 }: ButtonProps) {
@@ -28,12 +30,18 @@ export function Button({
       {...rest}
       disabled={isLoading}
       className={clsx(
-        `h-9 px-3 flex items-center justify-center gap-1 rounded-lg bg-blue-500 text-sm text-white hover:bg-blue-600 transition-colors ${className}`,
+        `h-9 px-3 flex items-center justify-center gap-1 rounded-lg bg-blue-500 text-sm transition-colors ${className}`,
         {
           'w-full': size === 'fluid',
           'opacity-80': disabled || loading,
           'hover:bg-blue-500': disabled || loading,
           'cursor-not-allowed': disabled || loading,
+          'text-white': color === 'default',
+          'text-blue-500': color === 'ghost',
+          ' hover:bg-blue-600': color === 'default',
+          'bg-transparent': color === 'ghost',
+          'border-transparent': color === 'ghost',
+          'hover:bg-blue-200': color === 'ghost',
         },
       )}
     >

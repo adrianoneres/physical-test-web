@@ -1,0 +1,94 @@
+.print {
+  background-color: #6b7280;
+  padding: 32px 0;
+}
+
+.print * {
+  font-size: 10px;
+}
+
+.print main {
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.print .page {
+  max-width: 864px;
+  height: 1024px;
+  margin: 32px;
+  padding: 32px;
+  break-after: always;
+  background-color: #fff;
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07))
+    drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+}
+
+.print table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  border: 1px solid;
+}
+
+.print th,
+.print td {
+  border: 1px solid;
+  padding: 0.25rem 0.5rem;
+}
+
+.print th {
+  text-align: left;
+}
+
+.print td.label {
+  font-weight: bold;
+}
+
+.print .subtable-wrapper {
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Specific styles */
+.print .w-1\/3 {
+  width: calc(100% / 3);
+}
+
+.print .w-1\/6 {
+  width: calc(100% / 6);
+}
+
+.print .spacer {
+  height: 1.5rem;
+}
+
+@media print {
+  .print {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .print * {
+    font-size: 10px;
+  }
+
+  .print main {
+    padding: 0;
+  }
+
+  .print .page {
+    page-break-after: always;
+    max-width: 740px;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    filter: none;
+  }
+}

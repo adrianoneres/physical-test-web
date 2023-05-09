@@ -27,6 +27,7 @@ export function handleError({
   const appError = error as AppError;
   const type = 'danger';
 
+  console.error(appError);
   console.error(appError.response.data);
 
   if (message) {

@@ -6,7 +6,7 @@ export interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
   control: Control<any, any>;
   label: string;
   name: string;
-  type?: 'text' | 'number';
+  type?: 'text' | 'number' | 'password';
   decimal?: boolean;
   error?: string;
   placeholder?: string;
