@@ -75,8 +75,6 @@ export default function PhysicalTests() {
           ? format(parseISO(dateTo).toISOString(), 'yyyy-MM-dd')
           : format(lastDayOfYear().toISOString(), 'yyyy-MM-dd');
 
-        console.log(dateFromRequest, dateToRequest);
-
         const response = await getApiClient().get(
           `/physical-tests?page=${page}&name=${name}&dateFrom=${dateFromRequest}&dateTo=${dateToRequest}`,
         );
