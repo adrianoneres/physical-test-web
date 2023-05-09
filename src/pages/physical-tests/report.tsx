@@ -150,8 +150,8 @@ export default function PhysicalTests() {
                 </td>
               </tr>
               <tr>
-                <td colSpan={2}>{formatNumber(physicalTest.height)} m</td>
-                <td colSpan={2}>{formatNumber(physicalTest.weight)} kg</td>
+                <td colSpan={2}>{formatNumber(physicalTest.height, 'm')}</td>
+                <td colSpan={2}>{formatNumber(physicalTest.weight, 'kg')}</td>
                 <td colSpan={2}>
                   {`${formatNumber(results.imc)} - ${formatImc(
                     results.imcLevel,
@@ -318,7 +318,7 @@ export default function PhysicalTests() {
                 </td>
               </tr>
               <tr>
-                <td colSpan={2}>Resistência geral</td>
+                <td colSpan={2}>Velocidade</td>
                 <td>{formatNumber(physicalTest.speed, 's')}</td>
                 <td>-</td>
                 <td>{formatNumber(physicalTest.speed, 's')}</td>

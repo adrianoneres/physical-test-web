@@ -1,6 +1,6 @@
 export const formatNumber = (value: number, unit?: string) => {
   if (value === 0) return '-';
-  return `${Intl.NumberFormat('pt-BR').format(value)} ${unit}`;
+  return `${Intl.NumberFormat('pt-BR').format(value)} ${unit || ''}`;
 };
 
 export const parseNumber = (
