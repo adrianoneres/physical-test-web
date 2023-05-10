@@ -75,8 +75,14 @@ export function Header() {
             showArrow
             items={[
               {
-                name: 'default',
+                name: 'options',
                 items: [
+                  {
+                    label: 'Perfil',
+                    action: () => router.push('/profile'),
+                    icon: UserCircleOutlineIcon,
+                    iconHover: UserCircleSolidIcon,
+                  },
                   {
                     label: 'Sair',
                     action: signOut,
